@@ -1,0 +1,102 @@
+body.dark-mode {
+    --color-primary: #0A84FF; /* Azul de Apple para acentos en modo oscuro */
+    --color-secondary: #2C2C2E; /* Gris oscuro para fondos secundarios */
+    --color-background: #1C1C1E; /* Negro muy oscuro para el fondo principal */
+    --color-text-dark: #F2F2F7; /* Blanco muy claro para texto principal */
+    --color-text-light: #AEAEB2; /* Gris claro para texto secundario */
+    --color-border: #3A3A3C; /* Gris oscuro para bordes sutiles */
+    --color-card-background: #2C2C2E; /* Gris oscuro para tarjetas */
+
+    background-color: var(--color-background) !important;
+    color: var(--color-text-dark) !important;
+}
+
+body.dark-mode .card {
+    background-color: var(--color-card-background) !important;
+    color: var(--color-text-dark) !important;
+    border-color: var(--color-border) !important;
+}
+
+body.dark-mode .card-title, body.dark-mode h1, body.dark-mode h2, body.dark-mode h3, body.dark-mode h4, body.dark-mode h5, body.dark-mode h6 {
+    color: var(--color-text-dark) !important;
+}
+
+body.dark-mode .text-muted {
+    color: var(--color-text-light) !important;
+}
+
+body.dark-mode .btn-outline-primary {
+    color: var(--color-primary) !important;
+    border-color: var(--color-primary) !important;
+}
+
+body.dark-mode .btn-outline-primary.active-category, body.dark-mode .btn-outline-primary:hover {
+    background-color: var(--color-primary) !important;
+    color: var(--color-background) !important;
+}
+
+body.dark-mode .modal-content {
+    background-color: var(--color-card-background) !important;
+    color: var(--color-text-dark) !important;
+    border-color: var(--color-border) !important;
+}
+
+body.dark-mode .modal-header, body.dark-mode .modal-footer {
+    border-color: var(--color-border) !important;
+}
+
+body.dark-mode .btn-close {
+    filter: invert(1) grayscale(100%) brightness(200%); /* Hace que la X sea blanca */
+}
+
+/* Estilos para el header */
+body.dark-mode header {
+    background-color: var(--color-card-background) !important;
+    color: var(--color-text-dark) !important;
+    border-bottom-color: var(--color-border) !important;
+}
+
+/* Estilos para la navegación */
+body.dark-mode .nav-tabs {
+    border-bottom-color: var(--color-border) !important;
+}
+
+body.dark-mode .nav-link {
+    background-color: transparent !important; /* Transparente para que el fondo del body se vea */
+    color: var(--color-text-light) !important;
+    border-color: transparent !important;
+}
+
+body.dark-mode .nav-link.active {
+    background-color: var(--color-secondary) !important;
+    border-color: var(--color-primary) var(--color-primary) var(--color-secondary) !important;
+}
+
+/* Estilos para el carrito flotante */
+body.dark-mode .floating-cart {
+    background-color: var(--color-primary) !important;
+    color: var(--color-background) !important;
+}
+
+body.dark-mode .floating-cart:hover {
+    background-color: #007AFF !important; /* Un tono más oscuro de azul para hover */
+}
+
+/* Estilos para el perfil.php */
+body.dark-mode .container.mt-5 .card {
+    background-color: var(--color-card-background) !important;
+    color: var(--color-text-dark) !important;
+}
+
+body.dark-mode .container.mt-5 .card-header {
+    background-color: var(--color-secondary) !important;
+    color: var(--color-text-dark) !important;
+}
+
+body.dark-mode .container.mt-5 .card-body p {
+    color: var(--color-text-dark) !important;
+}
+
+body.dark-mode .container.mt-5 .card-body strong {
+    color: var(--color-text-dark) !important;
+}
