@@ -1,0 +1,100 @@
+.product-image {
+    max-width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.filters-container {
+    flex-grow: 1;
+    justify-content: flex-end;
+}
+
+.table-hover tbody tr:hover {
+    background-color: rgba(0,0,0,0.05);
+}
+
+.card-header h2 {
+    font-size: 1.25rem;
+}
+
+.product-image-edit {
+    max-width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    padding: 4px;
+}
+
+.additional-images-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.current-image-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* --- Media Queries para Responsividad del Admin --- */
+
+@media (max-width: 992px) {
+    .filters-container form {
+        flex-basis: 400px; /* Evita que los filtros se hagan demasiado anchos */
+    }
+}
+
+@media (max-width: 768px) {
+    .filters-container {
+        width: 100%;
+        justify-content: center;
+    }
+    .filters-container form {
+        flex-direction: column;
+        width: 100%;
+        align-items: stretch;
+    }
+
+    h1.h2, h1.mt-4 {
+        font-size: 1.5rem;
+    }
+
+    .table thead {
+        display: none; /* Ocultar cabecera de tabla tradicional */
+    }
+
+    .table, .table tbody, .table tr, .table td {
+        display: block;
+        width: 100%;
+    }
+
+    .table tr {
+        margin-bottom: 1rem;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 0.5rem;
+    }
+
+    .table td {
+        display: flex; /* Usar flexbox para alinear etiqueta y valor */
+        justify-content: space-between; /* Poner espacio entre etiqueta y valor */
+        text-align: right;
+        padding: 0.5rem;
+        border: none;
+    }
+
+    .table td::before {
+        content: attr(data-label);
+        font-weight: bold;
+        text-align: left;
+        margin-right: 1rem;
+    }
+
+    .table td[data-label="Acciones"] .d-flex {
+        justify-content: flex-end; /* Alinear botones a la derecha */
+        width: 100%;
+    }
+}

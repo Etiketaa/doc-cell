@@ -1,0 +1,68 @@
+{% extends 'layout.html' %}
+
+{% block title %}Doctor Cell - Catálogo de Productos{% endblock %}
+
+{% block content %}
+<div class="container my-4">
+    <h1 class="text-center display-4">Doctor Cell: Catálogo de Accesorios para Celulares</h1>
+</div>
+
+<!-- Banner -->
+<section class="container my-4">
+    <div class="cta-banner">
+        <h2>Carga tus productos, realiza tu pedido y recibí en tu casa.</h2>
+        <p>Envíos gratis a todo Bahía.</p>
+    </div>
+</section>
+
+<!-- Carrusel de Últimos Productos -->
+<section id="latestProductsCarouselSection" class="container my-5">
+    <h2 class="text-center mb-4">Últimos Productos</h2>
+    <div id="latestProductsCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            {% for chunk in latest_products|batch(6) %}
+            <div class="carousel-item {% if loop.first %}active{% endif %}">
+                <div class="row">
+                    {% for product in chunk %}
+                        <div class="col-lg-2 col-md-4 col-6 mb-4">
+                            {% include 'partials/product_card.html' %}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#latestProductsCarousel" data-bs-slide="prev"><span class="carousel-control-prev-icon" aria-hidden="true"></span></button>
+        <button class="carousel-control-next" type="button" data-bs-target="#latestProductsCarousel" data-bs-slide="next"><span class="carousel-control-next-icon" aria-hidden="true"></span></button>
+    </div>
+</section>
+
+<!-- Barra de búsqueda -->
+<section class="container my-4">
+    <form action="{{ url_for('index') }}#products" method="GET" class="input-group input-group-lg">
+        <input type="text" class="form-control" name="search" placeholder="Buscar productos..." value="{{ search_term }}">
+        <button class="btn btn-primary" type="submit"><i class="bi bi-search"></i></button>
+    </form>
+</section>
+
+<!-- Productos -->
+<section id="products" class="container mt-3">
+    <h2 class="mb-4">Nuestros Productos</h2>
+    <div class="row">
+        {% if not products %}
+            <p class="text-center w-100">No se encontraron productos que coincidan con su búsqueda.</p>
+        {% else %}
+            {% for product in products %}
+                <div class="col-lg-2 col-md-4 col-6 mb-4">
+                    {% include 'partials/product_card.html' %}
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+
+    <!-- Controles de Paginación -->
+    <div class="d-flex justify-content-center mt-4">
+        {% include 'partials/pagination.html' %}
+    </div>
+</section>
+{% endblock %}

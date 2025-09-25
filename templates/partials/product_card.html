@@ -1,0 +1,18 @@
+<div class="custom-card">
+    <div class="custom-card__image-container">
+        <img src="{{ url_for('static', filename='img/products/' + product.image) if product.image else '' }}" class="custom-card__image" alt="{{ product.name }}">
+        <div class="custom-card__actions">
+            <button class="btn btn-outline-dark btn-sm" onclick='showProductDetails({{ product|tojson }})'>
+                <i class="bi bi-eye"></i> Más Info
+            </button>
+            <button class="btn btn-warning btn-sm" onclick='addToCart({{ product|tojson }})'>
+                <i class="bi bi-cart-plus"></i> Agregar
+            </button>
+        </div>
+    </div>
+    <div class="custom-card__info">
+        <p class="custom-card__category">{{ product.category }}</p>
+        <h5 class="custom-card__title">{{ product.name }}</h5>
+        <p class="custom-card__price">${{ "%.2f"|format(product.price) }}</p>
+    </div>
+</div>

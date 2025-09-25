@@ -1,0 +1,228 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+:root {
+    --primary-color: #007bff; /* Modern Blue */
+    --dark-grey: #212529;
+    --light-grey: #f8f9fa;
+    --text-color: #343a40;
+    --text-muted: #6c757d;
+    --white: #ffffff;
+    --card-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    --card-shadow-hover: 0 8px 15px rgba(0,0,0,0.1);
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--light-grey);
+    color: var(--text-color);
+}
+
+/* --- Layout --- */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 250px;
+    height: 100vh;
+    background-color: var(--dark-grey);
+    z-index: 1050;
+    display: flex;
+    flex-direction: column;
+    transform: translateX(-100%);
+    transition: transform 0.35s ease-in-out;
+}
+
+.main-content {
+    transition: margin-left 0.35s ease-in-out;
+}
+
+@media (min-width: 992px) {
+    .sidebar {
+        transform: translateX(0);
+    }
+    .main-content {
+        margin-left: 250px;
+    }
+    #sidebarToggleMobile, .sidebar-overlay, #sidebarClose {
+        display: none;
+    }
+}
+
+@media (max-width: 991.98px) {
+    .sidebar.active {
+        transform: translateX(0);
+    }
+    .sidebar-overlay.active {
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
+/* --- Header --- */
+.main-header.sticky-top {
+    z-index: 1020;
+    box-shadow: var(--card-shadow);
+}
+
+#typing-title {
+    font-weight: 600;
+}
+
+/* --- Sidebar Components --- */
+.sidebar-header {
+    padding: 1.25rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.sidebar-header h4 {
+    font-weight: 600;
+}
+
+.sidebar-body {
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+.sidebar-nav a {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 1rem 1.5rem;
+    color: #dee2e6;
+    text-decoration: none;
+    transition: background-color 0.2s, color 0.2s;
+    border-left: 4px solid transparent;
+}
+
+.sidebar-nav a:hover {
+    background-color: #343a40;
+    color: var(--white);
+}
+
+.sidebar-nav a.active-category {
+    background-color: #343a40;
+    border-left-color: var(--primary-color);
+    color: var(--white);
+    font-weight: 500;
+}
+
+.sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 1040;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.35s ease-in-out, visibility 0.35s ease-in-out;
+}
+
+/* --- Product Card --- */
+.custom-card {
+    background-color: var(--white);
+    border: none;
+    border-radius: 12px;
+    box-shadow: var(--card-shadow);
+    text-align: left;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.custom-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--card-shadow-hover);
+}
+
+.custom-card__image-container {
+    width: 100%;
+    padding-top: 100%;
+    position: relative;
+}
+
+.custom-card__image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 15px;
+}
+
+.custom-card__info {
+    padding: 1rem;
+}
+
+.custom-card__title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 4px;
+    color: var(--text-color);
+}
+
+.custom-card__price {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.custom-card__category {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-bottom: 0;
+}
+
+.custom-card__actions {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.95);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.custom-card:hover .custom-card__actions {
+    opacity: 1;
+}
+
+/* --- CTA Banner --- */
+.cta-banner {
+    background-color: var(--dark-grey);
+    color: white;
+    padding: 40px 30px;
+    border-radius: 15px;
+    text-align: center;
+}
+
+.cta-banner h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+/* --- General UI --- */
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn-primary:hover {
+    opacity: 0.9;
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}

@@ -1,81 +1,107 @@
-# Bit House - Sistema de Gestión de Productos
+# Doctor Cell
 
-## Descripción
+Un catálogo de productos y sistema de pedidos para una tienda de accesorios de celulares, con un panel de administración completo para la gestión de productos y usuarios.
 
-Bit House es una aplicación web diseñada para la gestión de productos. Permite a los administradores agregar, editar y eliminar productos, así como gestionar usuarios. Los usuarios pueden ver los productos disponibles. La aplicación está construida con PHP y utiliza Firebase para la autenticación de usuarios.
+**Repositorio del Proyecto:** [https://github.com/Etiketaa/doc-cell.git](https://github.com/Etiketaa/doc-cell.git)
 
-## Características
-
-- **Autenticación de Usuarios:** Sistema de inicio y cierre de sesión para usuarios.
-- **Gestión de Productos (Administrador):**
-  - Agregar nuevos productos.
-  - Editar la información de productos existentes.
-  - Eliminar productos.
-- **Visualización de Productos:** Los usuarios pueden navegar y ver la lista de productos.
-- **Panel de Administración:** Interfaz separada para que los administradores gestionen el contenido.
+---
 
 ## Tecnologías Utilizadas
 
-- **Frontend:** HTML, CSS, JavaScript
-- **Backend:** PHP
-- **Base de Datos/Autenticación:** Firebase (Realtime Database y Authentication)
-- **Servidor:** Apache (a través de XAMPP)
+*   **Backend:** Python, Flask, SQLAlchemy
+*   **Base de Datos:** MySQL
+*   **Frontend:** HTML, CSS, JavaScript, Bootstrap 5
+*   **Despliegue:** Vercel (Aplicación) y Clever Cloud (Base de Datos)
 
-## Instalación y Configuración
+---
 
-1.  **Clonar el repositorio:**
+## Configuración para Desarrollo Local
+
+Sigue estos pasos para ejecutar el proyecto en tu máquina local.
+
+### 1. Prerrequisitos
+
+*   Tener instalado Python 3.x.
+*   Tener instalado un servidor de MySQL y acceso al mismo.
+
+### 2. Instalación
+
+1.  **Clona el repositorio:**
     ```bash
-    git clone <url-del-repositorio>
+    git clone https://github.com/Etiketaa/doc-cell.git
+    cd doc-cell
     ```
-2.  **Configurar el entorno:**
-    -   Asegúrate de tener un servidor web como XAMPP o WAMP instalado.
-    -   Copia los archivos del proyecto en el directorio `htdocs` (para XAMPP) o `www` (para WAMP).
-3.  **Configurar Firebase:**
-    -   Crea un proyecto en la [consola de Firebase](https://console.firebase.google.com/).
-    -   Ve a la configuración de tu proyecto y copia la configuración de tu SDK web.
-    -   Pega esta configuración en el archivo `firebase-config.js`.
-    -   Asegúrate de habilitar la Autenticación por correo electrónico/contraseña en la consola de Firebase.
-4.  **Base de Datos:**
-    -   El proyecto utiliza tablas que se pueden crear ejecutando los scripts en la carpeta `includes/`:
-        -   `create_users_table.php`
-        -   `create_products_table.php`
-        -   `create_compradores_table.php`
-    -   Asegúrate de que tu archivo `includes/config.php` tenga las credenciales correctas de la base de datos si se utiliza una base de datos SQL además de Firebase.
 
-## Uso
+2.  **Crea y activa un entorno virtual:**
+    ```bash
+    # Para Windows
+    python -m venv venv
+    .\venv\Scripts\activate
 
-1.  **Iniciar el servidor:** Inicia tu servidor Apache y MySQL desde el panel de control de XAMPP/WAMP.
-2.  **Acceder a la aplicación:** Abre tu navegador y ve a `http://localhost/bit-house/`.
-3.  **Iniciar Sesión:**
-    -   Usa el formulario de `login.html` para iniciar sesión.
-    -   Si eres un administrador, serás redirigido al panel de administración.
-4.  **Panel de Administración:**
-    -   En `admin/`, puedes gestionar productos y usuarios.
+    # Para macOS/Linux
+    python3 -m venv venv
+    source venv/bin/activate
+    ```
 
-## Estructura del Proyecto
+3.  **Instala las dependencias:**
+    ```bash
+    pip install -r requirements.txt
+    ```
 
+4.  **Configura tu base de datos local:**
+    *   Abre tu cliente de MySQL.
+    *   Crea una nueva base de datos llamada `bit_house`.
+    *   Asegúrate de que la URL de conexión en `config.py` coincida con tu configuración de MySQL local (usuario, contraseña, etc.).
+
+### 3. Inicialización de la Base de Datos
+
+Estos scripts solo se ejecutan la primera vez que configuras el proyecto.
+
+1.  **Crea las tablas:**
+    ```bash
+    python create_tables.py
+    ```
+
+2.  **Crea tu primer usuario administrador:**
+    ```bash
+    python create_admin.py
+    ```
+    El script te pedirá de forma interactiva un nombre de usuario y una contraseña.
+
+### 4. Ejecuta la Aplicación
+
+```bash
+python app.py
 ```
-bit-house/
-├── admin/                # Panel de administración
-│   ├── add_product.php
-│   ├── delete_producto.php
-│   ├── edit_product.php
-│   ├── index.php
-│   └── users/
-├── img/                  # Imágenes de productos y de la web
-├── includes/             # Archivos de configuración y funciones
-│   ├── config.php
-│   ├── functions.php
-│   └── ...
-├── vendor/               # Dependencias de Composer (Firebase PHP)
-├── auth.js               # Lógica de autenticación con Firebase
-├── firebase-config.js    # Configuración de Firebase
-├── index.php             # Página principal
-├── login.html            # Formulario de inicio de sesión
-├── logout.php            # Script para cerrar sesión
-├── perfil.php            # Perfil de usuario
-├── products.csv          # Archivo CSV de productos (posiblemente para importación)
-├── script.js             # Scripts generales de JavaScript
-├── style.css             # Estilos CSS principales
-└── ...
-```
+La aplicación estará disponible en `http://127.0.0.1:5000`.
+
+---
+
+## Despliegue
+
+El proyecto está configurado para un despliegue sencillo en Vercel.
+
+1.  **Base de Datos en la Nube:** Crea una base de datos MySQL en un servicio como [Clever Cloud](https://www.clever-cloud.com/) o [PlanetScale](https://planetscale.com/).
+
+2.  **Configuración en Vercel:**
+    *   Importa tu repositorio de GitHub a Vercel.
+    *   En la configuración del proyecto en Vercel, ve a **Settings -> Environment Variables**.
+    *   Añade la variable de entorno `DATABASE_URL` con la URL de conexión de tu base de datos en la nube.
+
+3.  **Inicialización de la Base de Datos de Producción:**
+    *   Antes de que el sitio desplegado funcione, necesitas inicializar la base de datos remota.
+    *   En tu terminal local, configura la variable de entorno `DATABASE_URL` para que apunte a tu base de datos de producción y ejecuta los scripts de inicialización:
+        ```bash
+        # Ejemplo para Windows (cmd.exe)
+        set DATABASE_URL=tu-url-de-base-de-datos-remota
+        python create_tables.py
+        python create_admin.py
+        ```
+
+---
+
+## Autor
+
+Desarrollado por **Franco Paredes**.
+*   **Portfolio:** [https://francoparedes.vercel.app/](https://francoparedes.vercel.app/)
+*   **LinkedIn:** [https://www.linkedin.com/in/francoparedes1992/](https://www.linkedin.com/in/francoparedes1992/)
