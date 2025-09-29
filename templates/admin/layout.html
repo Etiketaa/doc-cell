@@ -18,9 +18,9 @@
                 <a href="{{ url_for('admin_dashboard') }}" class="list-group-item list-group-item-action bg-dark text-white active"><i class="fas fa-tachometer-alt me-2"></i>Dashboard</a>
                 <a href="#products-management" class="list-group-item list-group-item-action bg-dark text-white"><i class="fas fa-box me-2"></i>Gestión de Productos</a>
                 <a href="{{ url_for('add_product') }}" class="list-group-item list-group-item-action bg-dark text-white"><i class="fas fa-plus-circle me-2"></i>Agregar Producto</a>
-                <a href="{{ url_for('list_users') }}" class="list-group-item list-group-item-action bg-dark text-white"><i class="fas fa-users-cog me-2"></i>Gestión de Usuarios</a>
+                
                 <a href="#" class="list-group-item list-group-item-action bg-dark text-white"><i class="fas fa-shopping-cart me-2"></i>Gestión de Pedidos</a>
-                <a href="{{ url_for('admin_logout') }}" class="list-group-item list-group-item-action bg-dark text-white mt-auto"><i class="fas fa-sign-out-alt me-2"></i>Cerrar Sesión</a>
+                
             </div>
         </div>
 
@@ -38,7 +38,7 @@
                         <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
                             <li class="nav-item"><a class="nav-link" href="{{ url_for('admin_dashboard') }}">Dashboard</a></li>
                             <li class="nav-item"><a class="nav-link" href="{{ url_for('add_product') }}">Agregar Producto</a></li>
-                            <li class="nav-item"><a class="nav-link" href="{{ url_for('list_users') }}">Usuarios</a></li>
+                            
                             <li class="nav-item"><a class="nav-link" href="{{ url_for('index') }}" target="_blank">Ver Sitio</a></li>
                         </ul>
                     </div>

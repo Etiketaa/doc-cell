@@ -27,15 +27,7 @@ def create_app():
         except (json.JSONDecodeError, TypeError):
             return []
 
-    # Decorador para proteger rutas de admin
-    def admin_required(f):
-        @wraps(f)
-        def decorated_function(*args, **kwargs):
-            if 'admin_loggedin' not in session:
-                flash('Por favor, inicia sesión para acceder a esta página.', 'danger')
-                return redirect(url_for('admin_login'))
-            return f(*args, **kwargs)
-        return decorated_function
+    
 
     def upload_image(file):
         if file and file.filename != '':
@@ -78,34 +70,9 @@ def create_app():
                                  search_term=search_term,
                                  active_category=category_filter)
 
-    @app.route('/admin/login', methods=['GET', 'POST'])
-    def admin_login():
-        if 'admin_loggedin' in session:
-            return redirect(url_for('admin_dashboard'))
-
-        if request.method == 'POST':
-            username = request.form['username']
-            password = request.form['password']
-            
-            user = AdminUser.query.filter_by(username=username).first()
-            
-            if user and check_password_hash(user.password, password):
-                session['admin_loggedin'] = True
-                session['admin_username'] = user.username
-                return redirect(url_for('admin_dashboard'))
-            else:
-                flash('Nombre de usuario o contraseña incorrectos.', 'danger')
-
-        return render_template('admin/login.html')
-
-    @app.route('/admin/logout')
-    def admin_logout():
-        session.clear()
-        flash('Has cerrado sesión exitosamente.', 'success')
-        return redirect(url_for('admin_login'))
+    
 
     @app.route('/admin/dashboard')
-    @admin_required
     def admin_dashboard():
         page = request.args.get('page', 1, type=int)
         search_term = request.args.get('search', '')
@@ -136,7 +103,7 @@ def create_app():
                                  active_category=category_filter)
 
     @app.route('/admin/add_product', methods=['GET', 'POST'])
-    @admin_required
+    
     def add_product():
         if request.method == 'POST':
             name = request.form['name']
@@ -176,7 +143,7 @@ def create_app():
 
 
     @app.route('/admin/edit_product/<int:product_id>', methods=['GET', 'POST'])
-    @admin_required
+    
     def edit_product(product_id):
         product = Product.query.get_or_404(product_id)
 
@@ -221,7 +188,7 @@ def create_app():
 
 
     @app.route('/admin/delete_product/<int:product_id>', methods=['POST'])
-    @admin_required
+    
     def delete_product(product_id):
         product = Product.query.get_or_404(product_id)
 
@@ -240,74 +207,7 @@ def create_app():
         flash('Producto eliminado exitosamente!', 'success')
         return redirect(url_for('admin_dashboard'))
 
-    # --- User Management Routes ---
-    @app.route('/admin/users')
-    @admin_required
-    def list_users():
-        users = AdminUser.query.all()
-        return render_template('admin/users.html', users=users)
-
-    @app.route('/admin/add_user', methods=['GET', 'POST'])
-    @admin_required
-    def add_user():
-        if request.method == 'POST':
-            username = request.form['username']
-            password = request.form['password']
-
-            existing_user = AdminUser.query.filter_by(username=username).first()
-            if existing_user:
-                flash('Ese nombre de usuario ya existe.', 'danger')
-                return redirect(url_for('add_user'))
-
-            hashed_password = generate_password_hash(password)
-            new_user = AdminUser(username=username, password=hashed_password)
-            db.session.add(new_user)
-            db.session.commit()
-            flash('Usuario administrador agregado exitosamente.', 'success')
-            return redirect(url_for('list_users'))
-        return render_template('admin/add_user.html')
-
-    @app.route('/admin/edit_user/<int:user_id>', methods=['GET', 'POST'])
-    @admin_required
-    def edit_user(user_id):
-        user = AdminUser.query.get_or_404(user_id)
-        if request.method == 'POST':
-            new_username = request.form['username']
-            new_password = request.form['password']
-
-            # Check if username is being changed and if it already exists
-            if new_username != user.username:
-                existing_user = AdminUser.query.filter_by(username=new_username).first()
-                if existing_user:
-                    flash('Ese nombre de usuario ya está en uso.', 'danger')
-                    return redirect(url_for('edit_user', user_id=user_id))
-            
-            user.username = new_username
-
-            if new_password:
-                user.password = generate_password_hash(new_password)
-            
-            db.session.commit()
-            flash('Usuario actualizado exitosamente.', 'success')
-            return redirect(url_for('list_users'))
-
-        return render_template('admin/edit_user.html', user=user)
-
-    @app.route('/admin/delete_user/<int:user_id>', methods=['POST'])
-    @admin_required
-    def delete_user(user_id):
-        user_to_delete = AdminUser.query.get_or_404(user_id)
-        
-        # Safety check: prevent user from deleting themselves
-        current_user = AdminUser.query.filter_by(username=session['admin_username']).first()
-        if current_user and current_user.id == user_to_delete.id:
-            flash('No puedes eliminar tu propia cuenta.', 'danger')
-            return redirect(url_for('list_users'))
-
-        db.session.delete(user_to_delete)
-        db.session.commit()
-        flash('Usuario eliminado exitosamente.', 'success')
-        return redirect(url_for('list_users'))
+    
 
     # --- API Routes ---
     @app.route('/api/whatsapp_order', methods=['POST'])
@@ -332,7 +232,7 @@ def create_app():
         return jsonify({'whatsappUrl': whatsapp_url})
 
     @app.route('/api/product/<int:product_id>')
-    @admin_required
+    
     def get_product_data(product_id):
         product = Product.query.get_or_404(product_id)
         return jsonify(product.to_dict())

@@ -3,12 +3,7 @@ import json
 
 db = SQLAlchemy()
 
-class AdminUser(db.Model):
-    __tablename__ = 'admin_users'
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(50), unique=True, nullable=False)
-    password = db.Column(db.String(255), nullable=False)
-    role = db.Column(db.String(50), default='admin')
+
 
 class Product(db.Model):
     __tablename__ = 'products'
