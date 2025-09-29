@@ -49,9 +49,8 @@ Sigue estos pasos para ejecutar el proyecto en tu máquina local.
     ```
 
 4.  **Configura tu base de datos local:**
-    *   Abre tu cliente de MySQL.
-    *   Crea una nueva base de datos llamada `bit_house`.
-    *   Asegúrate de que la URL de conexión en `config.py` coincida con tu configuración de MySQL local (usuario, contraseña, etc.).
+    *   Abre tu cliente de MySQL y crea una nueva base de datos (puedes usar el nombre que prefieras, ej: `doc_cell_db`).
+    *   A continuación, ve al archivo `config.py` y asegúrate de que la línea `SQLALCHEMY_DATABASE_URI` coincida con tu configuración (tu usuario, tu contraseña y el nombre de la base de datos que creaste).
 
 ### 3. Inicialización de la Base de Datos
 
