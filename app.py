@@ -1,13 +1,13 @@
 from flask import Flask, render_template, request, session, redirect, url_for, flash, jsonify
 from urllib.parse import quote_plus
-from werkzeug.security import check_password_hash, generate_password_hash
+
 from werkzeug.utils import secure_filename
-from functools import wraps
+
 import os
 import uuid
 import json
 from config import Config
-from models import db, Product, AdminUser
+from models import db, Product
 
 
 def create_app():
